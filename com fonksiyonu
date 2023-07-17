@@ -1,0 +1,3 @@
+def select_com(event):
+    global com
+    com=COM_entry.get()
