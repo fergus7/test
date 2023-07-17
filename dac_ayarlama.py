@@ -9,7 +9,11 @@ root.geometry("450x500")
 frame=ttk.Frame(padding=20)
 frame.grid(column=0,row=0)
 folder_path=""
-
+def adc_bat():
+    global folder_path
+    command=fr'cd {folder_path} && python hwtf.py --port COM3 --c --command adc --pin 3'
+    adc=subprocess.check_output(command, shell=True)
+    return(adc)
 
 def led1_test():
     global folder_path
