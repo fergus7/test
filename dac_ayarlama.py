@@ -9,18 +9,28 @@ root.geometry("450x500")
 frame=ttk.Frame(padding=20)
 frame.grid(column=0,row=0)
 folder_path=""
+com=""
+
+def select_com(event):
+    global com
+    com=COM_entry.get()
+
+
+
+
+
 def adc_bat():
     global folder_path
-    command=fr'cd {folder_path} && python hwtf.py --port COM3 --c --command adc --pin 3'
+    command=fr'cd {folder_path} && python hwtf.py --port COM{com} --c --command adc --pin 3'
     adc=subprocess.check_output(command, shell=True)
     return(adc)
 
 def led1_test():
     global folder_path
-    command1=fr'cd {folder_path} && python hwtf.py --port COM3 --c --command output --pin 25 --value 0'
+    command1=fr'cd {folder_path} && python hwtf.py --port COM{com} --c --command output --pin 25 --value 0'
     subprocess.call(command1, shell=True)
     led2_testbox.configure(bg="white")
-    command2=fr'cd {folder_path} && python hwtf.py --port COM3 --c --command output --pin 26 --value 1'
+    command2=fr'cd {folder_path} && python hwtf.py --port COM{com} --c --command output --pin 26 --value 1'
     output=subprocess.check_output(command2, shell=True)
     cikis=output.decode()
     if "A C K"in cikis :
@@ -32,10 +42,10 @@ def led1_test():
         
 def led2_test():
     global folder_path
-    command1=fr'cd {folder_path} && python hwtf.py --port COM3 --c --command output --pin 26 --value 0'
+    command1=fr'cd {folder_path} && python hwtf.py --port COM{com} --c --command output --pin 26 --value 0'
     subprocess.call(command1, shell=True)
     led1_testbox.configure(bg="white")
-    command2=fr'cd {folder_path} && python hwtf.py --port COM3 --c --command output --pin 25 --value 1'
+    command2=fr'cd {folder_path} && python hwtf.py --port COM{com} --c --command output --pin 25 --value 1'
     output = subprocess.check_output(command2, shell=True)
     cikis=output.decode()
     if "A C K"in cikis:
@@ -69,7 +79,7 @@ def DAC_value_func(event):
         DAC_value=0
         
     file_path=folder_path
-    command=fr'cd {file_path} && python hwtf.py --port COM3 --c --command dac --pin 4 --value {DAC_value}'
+    command=fr'cd {file_path} && python hwtf.py --port COM{com} --c --command dac --pin 4 --value {DAC_value}'
     print("file path=",file_path)
     subprocess.call(command, shell=True)
     dac_value.delete(0, tk.END)
@@ -139,6 +149,8 @@ led2_testbox = tk.Label(frame, bg="white", width=1, height=0, borderwidth=1)
 led2_testbox.grid(row=9, column=1, pady=10)
 led2_testbutton=tk.Button(frame, text="Test", borderwidth=0.5,command=led2_test)
 led2_testbutton.grid(row=9, column=2, pady=10)
+
+
 
 
 
