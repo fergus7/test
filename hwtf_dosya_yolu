@@ -1,0 +1,3 @@
+import os
+simdiki_dosya_yolu=__file__
+hwtf_klasor_yolu=os.path.dirname(simdiki_dosya_yolu)
