@@ -1,0 +1,2 @@
+#importdeneme dosyasındaki current_dir yerine yazılacak
+current_dir = (os.path.abspath(sys.argv[0]))
